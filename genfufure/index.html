@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenFuture | Quando il Fisico Incontra il Digitale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fafbfc;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: -1;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0,0,0,0.2) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, rgba(0,0,0,0.2) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: noiseMove 20s linear infinite;
+        }
+
+        @keyframes noiseMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -100px); }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(250, 251, 252, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e1e8ed;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #1a1a1a;
+            border-bottom-color: #ffff55;
+        }
+
+        /* HERO WITH VIDEO BACKGROUND */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 6rem;
+            overflow: hidden;
+            color: white;
+        }
+
+        .video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 85, 0.9);
+            color: #1a1a1a;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: white;
+            letter-spacing: -2px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-highlight {
+            background: rgba(56, 88, 255, 0.9);
+            color: white;
+            padding: 0 0.3rem;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.5;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: #3858ff;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(56, 88, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #2a47e6;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 25px rgba(56, 88, 255, 0.4);
+        }
+
+        .btn-secondary {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Debug status for video */
+        #video-status {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            z-index: 20;
+        }
+
+        .stats {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #ffff55;
+            color: #1a1a1a;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .process-section {
+            background: white;
+            border-top: 1px solid #e1e8ed;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #ffff55;
+            border: 2px solid #ffff55;
+            color: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .about-section {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text strong {
+            color: #1a1a1a;
+        }
+
+        .mockup-placeholder {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-weight: 500;
+            border: 2px dashed #cbd5e1;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-description {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 0;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1.5rem 3rem;
+                min-height: 90vh;
+            }
+            
+            .hero h1 { 
+                font-size: 3rem; 
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .nav-links { 
+                display: none; 
+            }
+            
+            .about-content { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .footer-content { 
+                grid-template-columns: 1fr; 
+                gap: 2rem; 
+            }
+            
+            .cta-group { 
+                flex-direction: column; 
+                align-items: flex-start; 
+            }
+            
+            #video-status {
+                left: 1rem;
+                bottom: 1rem;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+            }
+            
+            /* Layout compatto mobile per grids */
+            .feature-grid,
+            .process-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            
+            /* Feature cards compatte */
+            .feature-card {
+                padding: 1.5rem 1rem;
+                min-height: auto;
+            }
+            
+            .feature-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .feature-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.7rem;
+                line-height: 1.3;
+            }
+            
+            .feature-description {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+            
+            /* Process steps compatti */
+            .process-step {
+                padding: 1.5rem 1rem;
+                text-align: center;
+            }
+            
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                margin: 0 auto 1rem;
+            }
+            
+            .step-title {
+                font-size: 1rem;
+                margin-bottom: 0.7rem;
+                line-height: 1.3;
+            }
+            
+            .step-description {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            /* Sezioni più compatte */
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <header>
+        <nav>
+            <div class="logo">GenFuture</div>
+            <ul class="nav-links">
+                <li><a href="#cosa-facciamo">Cosa facciamo</a></li>
+                <li><a href="#servizi">Servizi</a></li>
+                <li><a href="#team">Il nostro Team</a></li>
+                <li><a href="#processo">Come lavoriamo</a></li>
+                <li><a href="#call">Prenota una call</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="video-bg">
+            <video id="heroVideo" autoplay muted loop playsinline preload="auto" crossorigin="anonymous">
+                <source src="https://raw.githubusercontent.com/Dieguzz/Video/main/GenFuture.mp4" type="video/mp4">
+                Il tuo browser non supporta i video HTML5.
+            </video>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">Nuova generazione di marketing</div>
+            <h1>Il tuo gadget diventa <span class="hero-highlight">pura magia</span></h1>
+            <p class="hero-subtitle">
+                Creiamo gadget fisici che, con un semplice tocco, si trasformano. 
+                Niente app da scaricare, niente QR code. Solo pura magia digitale.
+            </p>
+            <div class="cta-group">
+                <a href="#call" class="btn-primary">Prenota una call gratuita</a>
+                <a href="#cosa-facciamo" class="btn-secondary">
+                    Scopri di più →
+                </a>
+            </div>
+        </div>
+
+        <div id="video-status">Stato video: <strong id="vs-text">inizializzazione…</strong></div>
+    </section>
+
+    <section class="stats">
+        <div class="stat">
+            <span class="stat-number">NFC</span>
+            <span class="stat-label">Tecnologia del futuro</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">Zero</span>
+            <span class="stat-label">App da scaricare</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">1 Tocco</span>
+            <span class="stat-label">Esperienza attivata</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Possibilità creative</span>
+        </div>
+    </section>
+
+    <section id="cosa-facciamo" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Cosa facciamo?</h2>
+            <p class="section-description">
+                Creiamo gadget fisici che si trasformano in esperienze digitali interattive. 
+                Niente QR code, niente app. Solo un tocco e la magia inizia.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3 class="feature-title">Smart Cards</h3>
+                <p class="feature-description">
+                    Biglietti da visita che si trasformano in profili digitali completi. 
+                    Il cliente tocca e accede immediatamente ai tuoi contatti, portfolio e social.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Landing Instant</h3>
+                <p class="feature-description">
+                    Adesivi e gadget che aprono landing page personalizzate. 
+                    Perfect per campagne marketing, menu digitali, cataloghi prodotti.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3 class="feature-title">Media Experience</h3>
+                <p class="feature-description">
+                    Gadget che attivano contenuti multimediali: video presentazioni, 
+                    playlist Spotify, gallery fotografiche, tour virtuali.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3 class="feature-title">Shop Connect</h3>
+                <p class="feature-description">
+                    Porta il cliente direttamente al tuo e-commerce o catalogo. 
+                    Perfetto per negozi fisici che vogliono estendere l'esperienza online.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servizi" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Servizi</h2>
+            <p class="section-description">
+                Ogni progetto inizia con una domanda semplice: come possiamo far vivere al tuo cliente un'esperienza che ricorderà per sempre?
+            </p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Strategia Esperienziale</h3>
+                <p class="feature-description">
+                    Definiamo insieme il percorso emotivo che vuoi far vivere. Dal primo tocco all'azione finale, 
+                    ogni dettaglio è progettato per convertire.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Gadget Smart</h3>
+                <p class="feature-description">
+                    Card, portachiavi, adesivi, oggetti personalizzati. Tutti con chip NFC invisibile e design su misura per il tuo brand.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">Piattaforme Digitali</h3>
+                <p class="feature-description">
+                    Landing page, profili interattivi, contenuti multimediali. Tutto ottimizzato per mobile e progettato per convertire.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Analytics Avanzati</h3>
+                <p class="feature-description">
+                    Tracciamo ogni interazione. Saprai esattamente chi, quando e dove ha utilizzato i tuoi gadget. 
+                    Dati che aiutano a ottimizzare.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Design & Produzione</h3>
+                <p class="feature-description">
+                    Dal concept 3D alla produzione finale. Gestiamo tutto internamente per garantire qualità e tempi di consegna.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3 class="feature-title">Supporto Continuo</h3>
+                <p class="feature-description">
+                    Non ti lasciamo solo dopo il lancio. Monitoriamo, ottimizziamo e evolviamo la tua strategia basandoci sui dati reali.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Il nostro team</h2>
+            <p class="section-description">
+                Un team giovane e specializzato che combina creatività, tecnologia e strategia. 
+                Ognuno di noi porta competenze uniche per trasformare le tue idee in realtà.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Creative Director</h3>
+                <p class="feature-description">
+                    Concept e design dei gadget. Si occupa dell'identità visiva e dell'esperienza utente. 
+                    Background in product design e branding.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Tech Lead</h3>
+                <p class="feature-description">
+                    Sviluppo delle piattaforme digitali e programmazione chip NFC. 
+                    Esperto in web development e tecnologie IoT.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Marketing Strategist</h3>
+                <p class="feature-description">
+                    Definisce le strategie di engagement e conversione. 
+                    Analizza i comportamenti utente e ottimizza le performance.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛠️</div>
+                <h3 class="feature-title">Production Manager</h3>
+                <p class="feature-description">
+                    Gestisce la produzione e il controllo qualità dei gadget. 
+                    Coordina fornitori e garantisce tempi di consegna.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="processo" class="section process-section">
+        <div class="section-header">
+            <h2 class="section-title">Come lavoriamo</h2>
+            <p class="section-description">
+                Un processo collaudato in oltre 150 progetti. Niente improvvisazione, solo metodo e risultati misurabili.
+            </p>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4 class="step-title">Discovery & Strategia</h4>
+                <p class="step-description">
+                    Analizziamo il tuo business, i tuoi clienti e gli obiettivi. Definiamo la strategia esperienziale più efficace.
+                </p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4 class="step-title">Design & Prototipo</h4>
+                <p class="step-description">
+                    Progettiamo gadget e esperienze digitali. Ti mostriamo render 3D e prototipi funzionanti prima della produzione.
+                </p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4 class="step-title">Sviluppo & Test</h4>
+                <p class="step-description">
+                    Realizziamo gadget e piattaforme digitali. Testiamo tutto ossessivamente prima del lancio ufficiale.
+                </p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4 class="step-title">Launch & Ottimizzazione</h4>
+                <p class="step-description">
+                    Lanciamo il progetto e monitoriamo le performance in tempo reale. Ottimizziamo basandoci sui dati raccolti.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="call" class="section">
+        <div class="section-header">
+            <h2 class="section-title">30 minuti che cambiano tutto</h2>
+            <p class="section-description">
+                Raccontaci la tua idea e scopriamo insieme come trasformarla in un progetto NFC vincente. 
+                Call gratuita di 30 minuti, senza impegno.
+            </p>
+        </div>
+
+        <div style="background: white; border: 1px solid #e1e8ed; border-radius: 12px; padding: 3rem; max-width: 600px; margin: 0 auto; text-align: center;">
+            <h3 style="margin-bottom: 2rem; color: #1a1a1a;">Durante la call:</h3>
+            <div style="display: grid; gap: 1.5rem; text-align: left; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="background: #ffff55; color: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                    <div>
+                        <strong style="color: #1a1a1a;">Analizziamo il tuo progetto</strong><br>
+                        <span style="color: #64748b;">Capiamo i tuoi obiettivi e il target di riferimento</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="background: #ffff55; color: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                    <div>
+                        <strong style="color: #1a1a1a;">Ti mostriamo le possibilità</strong><br>
+                        <span style="color: #64748b;">Esempi concreti di cosa possiamo realizzare insieme</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="background: #ffff55; color: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</div>
+                    <div>
+                        <strong style="color: #1a1a1a;">Definiamo next step</strong><br>
+                        <span style="color: #64748b;">Timeline, budget e modalità di collaborazione</span>
+                    </div>
+                </div>
+            </div>
+            <a href="mailto:genfuture@outlook.c?subject=Richiesta Call Gratuita&body=Ciao, vorrei prenotare una call gratuita per discutere il mio progetto NFC." 
+               class="btn-primary" style="display: inline-block;">
+                Prenota la tua call gratuita
+            </a>
+            <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
+                Oppure scrivici su WhatsApp: +39 345 468 9958
+            </p>
+        </div>
+    </section>
+
+    <section id="chi-siamo" class="section about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="section-title">Perché facciamo solo questo</h2>
+                <p>
+                    <strong>Non siamo una web agency qualunque.</strong> Mentre altri vendono servizi, noi creiamo sistemi che generano valore misurabile per il tuo business.
+                </p>
+                <p>
+                    Il nostro team combina <strong>creatività strategica</strong> e <strong>competenze tecniche avanzate</strong>. 
+                    Ogni membro ha anni di esperienza in progetti digitali ad alto impatto.
+                </p>
+                <p>
+                    <strong>Collaboriamo con aziende visionarie</strong> che vogliono differenziarsi dalla concorrenza. 
+                    Ogni progetto è unico e pensato su misura per i tuoi obiettivi specifici.
+                </p>
+                <p>
+                    La tecnologia NFC esiste da anni, ma quasi nessuno la usa bene. 
+                    Noi abbiamo sviluppato un approccio che <strong>massimizza l'impatto</strong> 
+                    e crea esperienze davvero memorabili.
+                </p>
+            </div>
+            <div class="mockup-placeholder">
+                Il tuo render 3D / Video qui
+            </div>
+        </div>
+    </section>
+
+    <footer id="contatti">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">GenFuture</div>
+                <p class="footer-description">
+                    Trasformiamo gadget fisici in potenti strumenti di marketing digitale. 
+                    Progetti su misura per tutte le aziende.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Servizi</h4>
+                <ul class="footer-links">
+                    <li><a href="#cosa-facciamo">Smart Cards</a></li>
+                    <li><a href="#cosa-facciamo">Landing Instant</a></li>
+                    <li><a href="#cosa-facciamo">Media Experience</a></li>
+                    <li><a href="#cosa-facciamo">Shop Connect</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Informazioni</h4>
+                <ul class="footer-links">
+                    <li><a href="#processo">Il nostro metodo</a></li>
+                    <li><a href="#team">Il team</a></li>
+                    <li><a href="#call">Prenota una call</a></li>
+                    <li><a href="#chi-siamo">Chi siamo</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contatti</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:genfuture@outlook.com">genfuture@outlook.com</a></li>
+                    <li><a href="tel:+390123456789">+39 345 468 9958</a></li>
+                    <li><a href="#">Milano, Italia</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 GenFuture. Costruiamo il futuro del marketing fisico-digitale.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function(){
+            const v = document.getElementById('heroVideo');
+            const vsText = document.getElementById('vs-text');
+
+            function setStatus(t){
+                vsText.textContent = t;
+                console.log('VIDEO STATUS:', t);
+            }
+
+            // Eventi utili per il debug
+            v.addEventListener('loadedmetadata', () => setStatus('loadedmetadata — durata: ' + (v.duration || 'n/a')));
+            v.addEventListener('canplay', () => setStatus('canplay — readyState=' + v.readyState));
+            v.addEventListener('playing', () => setStatus('playing'));
+            v.addEventListener('stalled', () => setStatus('stalled (buffering)'));
+            v.addEventListener('suspend', () => console.warn('suspend event'));
+            v.addEventListener('waiting', () => setStatus('waiting (loading more data)'));
+
+            v.addEventListener('error', async () => {
+                const code = v.error && v.error.code;
+                const msgCode = {1:'ABORTED',2:'NETWORK',3:'DECODE',4:'SRC_NOT_SUPPORTED'}[code] || 'UNKNOWN';
+                setStatus('ERROR: ' + msgCode + ' (code ' + code + ')');
+                console.error('Video element error:', v.error);
+
+                // Prova una richiesta HEAD per ispezionare gli header del server (potrebbe essere bloccata da CORS)
+                const src = v.currentSrc || v.querySelector('source').src;
+                try{
+                    const r = await fetch(src, { method: 'HEAD' });
+                    console.log('HEAD response:', r.status, r.headers.get('content-type'), 'accept-ranges:', r.headers.get('accept-ranges'));
+                } catch(err){
+                    console.warn('HEAD fetch failed (likely CORS):', err);
+                }
+            });
+
+            // Test rapido manuale: se il video non si avvia automaticamente a causa delle policy del browser
+            setTimeout(()=> {
+                if (v.paused) {
+                    setStatus('Video in pausa (policy browser). Controlla Console/Network.');
+                }
+            }, 2000);
+
+            // Nasconde il debug status dopo 10 secondi se tutto funziona
+            setTimeout(() => {
+                if (vsText.textContent === 'playing') {
+                    document.getElementById('video-status').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('video-status').style.display = 'none';
+                    }, 500);
+                }
+            }, 10000);
+        })();
+    </script>
+</body>
+</html>
