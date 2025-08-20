@@ -63,6 +63,12 @@
             letter-spacing: -0.5px;
         }
 
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -84,6 +90,150 @@
         .nav-links a.active {
             color: #1a1a1a;
             border-bottom-color: #ffff55;
+        }
+
+        /* Toggle Buttons */
+        .toggle-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #64748b;
+        }
+
+        .toggle-btn:hover {
+            background: #e2e8f0;
+            color: #1a1a1a;
+        }
+
+        .toggle-btn.active {
+            background: #ffff55;
+            color: #1a1a1a;
+            border-color: #ffff55;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom-color: #334155;
+        }
+
+        body.dark-mode .logo {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .nav-links a {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .nav-links a:hover,
+        body.dark-mode .nav-links a.active {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .toggle-btn {
+            background: #1e293b;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+
+        body.dark-mode .toggle-btn:hover {
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .hero {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .hero h1 {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .hero-subtitle {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .btn-secondary {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .btn-secondary:hover {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .stat-number {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .stat-label {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .section-title {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .section-description {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .feature-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .feature-card:hover {
+            border-color: #475569;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        body.dark-mode .feature-title {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .feature-description {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .process-section {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .step-title {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .step-description {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .about-section {
+            background: #1e293b;
+        }
+
+        body.dark-mode .about-text {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .about-text strong {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .mockup-placeholder {
+            background: linear-gradient(135deg, #334155, #475569);
+            border-color: #64748b;
+            color: #94a3b8;
         }
 
         /* HERO WITH VIDEO BACKGROUND */
@@ -112,6 +262,10 @@
             object-fit: cover;
             filter: brightness(0.4);
             display: block;
+        }
+
+        body.dark-mode .video-bg video {
+            filter: brightness(0.2);
         }
 
         .hero-content {
@@ -465,6 +619,11 @@
             font-size: 0.9rem;
         }
 
+        /* Hidden class for language switching */
+        .hidden {
+            display: none !important;
+        }
+
         @media (max-width: 768px) {
             .hero {
                 padding: 4rem 1.5rem 3rem;
@@ -479,7 +638,8 @@
                 padding: 0 1rem;
             }
 
-            .nav-links { 
+            .nav-links,
+            .nav-controls { 
                 display: none; 
             }
             
@@ -586,13 +746,17 @@
     <header>
         <nav>
             <div class="logo">GenFuture</div>
-            <ul class="nav-links">
-                <li><a href="#cosa-facciamo">Cosa facciamo</a></li>
-                <li><a href="#servizi">Servizi</a></li>
-                <li><a href="#team">Il nostro Team</a></li>
-                <li><a href="#processo">Come lavoriamo</a></li>
-                <li><a href="#call">Prenota una call</a></li>
-            </ul>
+            <div class="nav-controls">
+                <ul class="nav-links">
+                    <li><a href="#cosa-facciamo" data-it="Cosa facciamo" data-en="What we do">Cosa facciamo</a></li>
+                    <li><a href="#servizi" data-it="Servizi" data-en="Services">Servizi</a></li>
+                    <li><a href="#team" data-it="Il nostro Team" data-en="Our Team">Il nostro Team</a></li>
+                    <li><a href="#processo" data-it="Come lavoriamo" data-en="How we work">Come lavoriamo</a></li>
+                    <li><a href="#call" data-it="Prenota una call" data-en="Book a call">Prenota una call</a></li>
+                </ul>
+                <button class="toggle-btn" id="langToggle">EN</button>
+                <button class="toggle-btn" id="darkToggle">🌙</button>
+            </div>
         </nav>
     </header>
 
@@ -600,51 +764,51 @@
         <div class="video-bg">
             <video id="heroVideo" autoplay muted loop playsinline preload="auto" crossorigin="anonymous">
                 <source src="https://raw.githubusercontent.com/Dieguzz/Video/main/GenFuture.mp4" type="video/mp4">
-                Il tuo browser non supporta i video HTML5.
+                <span data-it="Il tuo browser non supporta i video HTML5." data-en="Your browser does not support HTML5 video.">Il tuo browser non supporta i video HTML5.</span>
             </video>
         </div>
 
         <div class="hero-content">
-            <div class="hero-badge">Nuova generazione di marketing</div>
-            <h1>Il tuo gadget diventa <span class="hero-highlight">pura magia</span></h1>
-            <p class="hero-subtitle">
+            <div class="hero-badge" data-it="Nuova generazione di marketing" data-en="Next generation marketing">Nuova generazione di marketing</div>
+            <h1 data-it="Il tuo gadget diventa <span class='hero-highlight'>pura magia</span>" data-en="Your gadget becomes <span class='hero-highlight'>pure magic</span>">Il tuo gadget diventa <span class="hero-highlight">pura magia</span></h1>
+            <p class="hero-subtitle" data-it="Creiamo gadget fisici che, con un semplice tocco, si trasformano. Niente app da scaricare, niente QR code. Solo pura magia digitale." data-en="We create physical gadgets that transform with a simple touch. No apps to download, no QR codes. Just pure digital magic.">
                 Creiamo gadget fisici che, con un semplice tocco, si trasformano. 
                 Niente app da scaricare, niente QR code. Solo pura magia digitale.
             </p>
             <div class="cta-group">
-                <a href="#call" class="btn-primary">Prenota una call gratuita</a>
-                <a href="#cosa-facciamo" class="btn-secondary">
+                <a href="#call" class="btn-primary" data-it="Prenota una call gratuita" data-en="Book a free call">Prenota una call gratuita</a>
+                <a href="#cosa-facciamo" class="btn-secondary" data-it="Scopri di più →" data-en="Learn more →">
                     Scopri di più →
                 </a>
             </div>
         </div>
 
-        <div id="video-status">Stato video: <strong id="vs-text">inizializzazione…</strong></div>
+        <div id="video-status"><span data-it="Stato video:" data-en="Video status:">Stato video:</span> <strong id="vs-text" data-it="inizializzazione…" data-en="initializing…">inizializzazione…</strong></div>
     </section>
 
     <section class="stats">
         <div class="stat">
             <span class="stat-number">NFC</span>
-            <span class="stat-label">Tecnologia del futuro</span>
+            <span class="stat-label" data-it="Tecnologia del futuro" data-en="Future technology">Tecnologia del futuro</span>
         </div>
         <div class="stat">
             <span class="stat-number">Zero</span>
-            <span class="stat-label">App da scaricare</span>
+            <span class="stat-label" data-it="App da scaricare" data-en="Apps to download">App da scaricare</span>
         </div>
         <div class="stat">
-            <span class="stat-number">1 Tocco</span>
-            <span class="stat-label">Esperienza attivata</span>
+            <span class="stat-number" data-it="1 Tocco" data-en="1 Touch">1 Tocco</span>
+            <span class="stat-label" data-it="Esperienza attivata" data-en="Experience activated">Esperienza attivata</span>
         </div>
         <div class="stat">
             <span class="stat-number">∞</span>
-            <span class="stat-label">Possibilità creative</span>
+            <span class="stat-label" data-it="Possibilità creative" data-en="Creative possibilities">Possibilità creative</span>
         </div>
     </section>
 
     <section id="cosa-facciamo" class="section">
         <div class="section-header">
-            <h2 class="section-title">Cosa facciamo?</h2>
-            <p class="section-description">
+            <h2 class="section-title" data-it="Cosa facciamo?" data-en="What do we do?">Cosa facciamo?</h2>
+            <p class="section-description" data-it="Creiamo gadget fisici che si trasformano in esperienze digitali interattive. Niente QR code, niente app. Solo un tocco e la magia inizia." data-en="We create physical gadgets that transform into interactive digital experiences. No QR codes, no apps. Just one touch and the magic begins.">
                 Creiamo gadget fisici che si trasformano in esperienze digitali interattive. 
                 Niente QR code, niente app. Solo un tocco e la magia inizia.
             </p>
@@ -653,8 +817,8 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feature-icon">💳</div>
-                <h3 class="feature-title">Smart Cards</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Smart Cards" data-en="Smart Cards">Smart Cards</h3>
+                <p class="feature-description" data-it="Biglietti da visita che si trasformano in profili digitali completi. Il cliente tocca e accede immediatamente ai tuoi contatti, portfolio e social." data-en="Business cards that transform into complete digital profiles. The customer touches and immediately accesses your contacts, portfolio and social media.">
                     Biglietti da visita che si trasformano in profili digitali completi. 
                     Il cliente tocca e accede immediatamente ai tuoi contatti, portfolio e social.
                 </p>
@@ -662,8 +826,8 @@
 
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Landing Instant</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Landing Instant" data-en="Instant Landing">Landing Instant</h3>
+                <p class="feature-description" data-it="Adesivi e gadget che aprono landing page personalizzate. Perfect per campagne marketing, menu digitali, cataloghi prodotti." data-en="Stickers and gadgets that open personalized landing pages. Perfect for marketing campaigns, digital menus, product catalogs.">
                     Adesivi e gadget che aprono landing page personalizzate. 
                     Perfect per campagne marketing, menu digitali, cataloghi prodotti.
                 </p>
@@ -671,8 +835,8 @@
 
             <div class="feature-card">
                 <div class="feature-icon">🎬</div>
-                <h3 class="feature-title">Media Experience</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Media Experience" data-en="Media Experience">Media Experience</h3>
+                <p class="feature-description" data-it="Gadget che attivano contenuti multimediali: video presentazioni, playlist Spotify, gallery fotografiche, tour virtuali." data-en="Gadgets that activate multimedia content: video presentations, Spotify playlists, photo galleries, virtual tours.">
                     Gadget che attivano contenuti multimediali: video presentazioni, 
                     playlist Spotify, gallery fotografiche, tour virtuali.
                 </p>
@@ -680,8 +844,8 @@
 
             <div class="feature-card">
                 <div class="feature-icon">🛒</div>
-                <h3 class="feature-title">Shop Connect</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Shop Connect" data-en="Shop Connect">Shop Connect</h3>
+                <p class="feature-description" data-it="Porta il cliente direttamente al tuo e-commerce o catalogo. Perfetto per negozi fisici che vogliono estendere l'esperienza online." data-en="Take the customer directly to your e-commerce or catalog. Perfect for physical stores that want to extend the online experience.">
                     Porta il cliente direttamente al tuo e-commerce o catalogo. 
                     Perfetto per negozi fisici che vogliono estendere l'esperienza online.
                 </p>
@@ -691,8 +855,8 @@
 
     <section id="servizi" class="section">
         <div class="section-header">
-            <h2 class="section-title">Servizi</h2>
-            <p class="section-description">
+            <h2 class="section-title" data-it="Servizi" data-en="Services">Servizi</h2>
+            <p class="section-description" data-it="Ogni progetto inizia con una domanda semplice: come possiamo far vivere al tuo cliente un'esperienza che ricorderà per sempre?" data-en="Every project starts with a simple question: how can we give your customer an experience they will remember forever?">
                 Ogni progetto inizia con una domanda semplice: come possiamo far vivere al tuo cliente un'esperienza che ricorderà per sempre?
             </p>
         </div>
@@ -700,8 +864,8 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
-                <h3 class="feature-title">Strategia Esperienziale</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Strategia Esperienziale" data-en="Experiential Strategy">Strategia Esperienziale</h3>
+                <p class="feature-description" data-it="Definiamo insieme il percorso emotivo che vuoi far vivere. Dal primo tocco all'azione finale, ogni dettaglio è progettato per convertire." data-en="We define together the emotional journey you want to create. From the first touch to the final action, every detail is designed to convert.">
                     Definiamo insieme il percorso emotivo che vuoi far vivere. Dal primo tocco all'azione finale, 
                     ogni dettaglio è progettato per convertire.
                 </p>
@@ -709,24 +873,24 @@
 
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Gadget Smart</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Gadget Smart" data-en="Smart Gadgets">Gadget Smart</h3>
+                <p class="feature-description" data-it="Card, portachiavi, adesivi, oggetti personalizzati. Tutti con chip NFC invisibile e design su misura per il tuo brand." data-en="Cards, keychains, stickers, personalized objects. All with invisible NFC chip and custom design for your brand.">
                     Card, portachiavi, adesivi, oggetti personalizzati. Tutti con chip NFC invisibile e design su misura per il tuo brand.
                 </p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">🚀</div>
-                <h3 class="feature-title">Piattaforme Digitali</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Piattaforme Digitali" data-en="Digital Platforms">Piattaforme Digitali</h3>
+                <p class="feature-description" data-it="Landing page, profili interattivi, contenuti multimediali. Tutto ottimizzato per mobile e progettato per convertire." data-en="Landing pages, interactive profiles, multimedia content. Everything optimized for mobile and designed to convert.">
                     Landing page, profili interattivi, contenuti multimediali. Tutto ottimizzato per mobile e progettato per convertire.
                 </p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3 class="feature-title">Analytics Avanzati</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Analytics Avanzati" data-en="Advanced Analytics">Analytics Avanzati</h3>
+                <p class="feature-description" data-it="Tracciamo ogni interazione. Saprai esattamente chi, quando e dove ha utilizzato i tuoi gadget. Dati che aiutano a ottimizzare." data-en="We track every interaction. You'll know exactly who, when and where used your gadgets. Data that helps optimize.">
                     Tracciamo ogni interazione. Saprai esattamente chi, quando e dove ha utilizzato i tuoi gadget. 
                     Dati che aiutano a ottimizzare.
                 </p>
@@ -734,16 +898,16 @@
 
             <div class="feature-card">
                 <div class="feature-icon">🎨</div>
-                <h3 class="feature-title">Design & Produzione</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Design & Produzione" data-en="Design & Production">Design & Produzione</h3>
+                <p class="feature-description" data-it="Dal concept 3D alla produzione finale. Gestiamo tutto internamente per garantire qualità e tempi di consegna." data-en="From 3D concept to final production. We manage everything internally to guarantee quality and delivery times.">
                     Dal concept 3D alla produzione finale. Gestiamo tutto internamente per garantire qualità e tempi di consegna.
                 </p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">⚙️</div>
-                <h3 class="feature-title">Supporto Continuo</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Supporto Continuo" data-en="Continuous Support">Supporto Continuo</h3>
+                <p class="feature-description" data-it="Non ti lasciamo solo dopo il lancio. Monitoriamo, ottimizziamo e evolviamo la tua strategia basandoci sui dati reali." data-en="We don't leave you alone after launch. We monitor, optimize and evolve your strategy based on real data.">
                     Non ti lasciamo solo dopo il lancio. Monitoriamo, ottimizziamo e evolviamo la tua strategia basandoci sui dati reali.
                 </p>
             </div>
@@ -752,8 +916,8 @@
 
     <section id="team" class="section">
         <div class="section-header">
-            <h2 class="section-title">Il nostro team</h2>
-            <p class="section-description">
+            <h2 class="section-title" data-it="Il nostro team" data-en="Our team">Il nostro team</h2>
+            <p class="section-description" data-it="Un team giovane e specializzato che combina creatività, tecnologia e strategia. Ognuno di noi porta competenze uniche per trasformare le tue idee in realtà." data-en="A young and specialized team that combines creativity, technology and strategy. Each of us brings unique skills to transform your ideas into reality.">
                 Un team giovane e specializzato che combina creatività, tecnologia e strategia. 
                 Ognuno di noi porta competenze uniche per trasformare le tue idee in realtà.
             </p>
@@ -762,8 +926,8 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feature-icon">🎨</div>
-                <h3 class="feature-title">Creative Director</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Creative Director" data-en="Creative Director">Creative Director</h3>
+                <p class="feature-description" data-it="Concept e design dei gadget. Si occupa dell'identità visiva e dell'esperienza utente. Background in product design e branding." data-en="Concept and design of gadgets. Takes care of visual identity and user experience. Background in product design and branding.">
                     Concept e design dei gadget. Si occupa dell'identità visiva e dell'esperienza utente. 
                     Background in product design e branding.
                 </p>
@@ -771,8 +935,8 @@
 
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Tech Lead</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Tech Lead" data-en="Tech Lead">Tech Lead</h3>
+                <p class="feature-description" data-it="Sviluppo delle piattaforme digitali e programmazione chip NFC. Esperto in web development e tecnologie IoT." data-en="Development of digital platforms and NFC chip programming. Expert in web development and IoT technologies.">
                     Sviluppo delle piattaforme digitali e programmazione chip NFC. 
                     Esperto in web development e tecnologie IoT.
                 </p>
@@ -780,8 +944,8 @@
 
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
-                <h3 class="feature-title">Marketing Strategist</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Marketing Strategist" data-en="Marketing Strategist">Marketing Strategist</h3>
+                <p class="feature-description" data-it="Definisce le strategie di engagement e conversione. Analizza i comportamenti utente e ottimizza le performance." data-en="Defines engagement and conversion strategies. Analyzes user behavior and optimizes performance.">
                     Definisce le strategie di engagement e conversione. 
                     Analizza i comportamenti utente e ottimizza le performance.
                 </p>
@@ -789,8 +953,8 @@
 
             <div class="feature-card">
                 <div class="feature-icon">🛠️</div>
-                <h3 class="feature-title">Production Manager</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-it="Production Manager" data-en="Production Manager">Production Manager</h3>
+                <p class="feature-description" data-it="Gestisce la produzione e il controllo qualità dei gadget. Coordina fornitori e garantisce tempi di consegna." data-en="Manages production and quality control of gadgets. Coordinates suppliers and guarantees delivery times.">
                     Gestisce la produzione e il controllo qualità dei gadget. 
                     Coordina fornitori e garantisce tempi di consegna.
                 </p>
@@ -800,8 +964,8 @@
 
     <section id="processo" class="section process-section">
         <div class="section-header">
-            <h2 class="section-title">Come lavoriamo</h2>
-            <p class="section-description">
+            <h2 class="section-title" data-it="Come lavoriamo" data-en="How we work">Come lavoriamo</h2>
+            <p class="section-description" data-it="Un processo collaudato in oltre 150 progetti. Niente improvvisazione, solo metodo e risultati misurabili." data-en="A proven process in over 150 projects. No improvisation, just method and measurable results.">
                 Un processo collaudato in oltre 150 progetti. Niente improvvisazione, solo metodo e risultati misurabili.
             </p>
         </div>
@@ -809,32 +973,32 @@
         <div class="process-grid">
             <div class="process-step">
                 <div class="step-number">1</div>
-                <h4 class="step-title">Discovery & Strategia</h4>
-                <p class="step-description">
+                <h4 class="step-title" data-it="Discovery & Strategia" data-en="Discovery & Strategy">Discovery & Strategia</h4>
+                <p class="step-description" data-it="Analizziamo il tuo business, i tuoi clienti e gli obiettivi. Definiamo la strategia esperienziale più efficace." data-en="We analyze your business, your customers and objectives. We define the most effective experiential strategy.">
                     Analizziamo il tuo business, i tuoi clienti e gli obiettivi. Definiamo la strategia esperienziale più efficace.
                 </p>
             </div>
 
             <div class="process-step">
                 <div class="step-number">2</div>
-                <h4 class="step-title">Design & Prototipo</h4>
-                <p class="step-description">
+                <h4 class="step-title" data-it="Design & Prototipo" data-en="Design & Prototype">Design & Prototipo</h4>
+                <p class="step-description" data-it="Progettiamo gadget e esperienze digitali. Ti mostriamo render 3D e prototipi funzionanti prima della produzione." data-en="We design gadgets and digital experiences. We show you 3D renders and working prototypes before production.">
                     Progettiamo gadget e esperienze digitali. Ti mostriamo render 3D e prototipi funzionanti prima della produzione.
                 </p>
             </div>
 
             <div class="process-step">
                 <div class="step-number">3</div>
-                <h4 class="step-title">Sviluppo & Test</h4>
-                <p class="step-description">
+                <h4 class="step-title" data-it="Sviluppo & Test" data-en="Development & Testing">Sviluppo & Test</h4>
+                <p class="step-description" data-it="Realizziamo gadget e piattaforme digitali. Testiamo tutto ossessivamente prima del lancio ufficiale." data-en="We create gadgets and digital platforms. We test everything obsessively before the official launch.">
                     Realizziamo gadget e piattaforme digitali. Testiamo tutto ossessivamente prima del lancio ufficiale.
                 </p>
             </div>
 
             <div class="process-step">
                 <div class="step-number">4</div>
-                <h4 class="step-title">Launch & Ottimizzazione</h4>
-                <p class="step-description">
+                <h4 class="step-title" data-it="Launch & Ottimizzazione" data-en="Launch & Optimization">Launch & Ottimizzazione</h4>
+                <p class="step-description" data-it="Lanciamo il progetto e monitoriamo le performance in tempo reale. Ottimizziamo basandoci sui dati raccolti." data-en="We launch the project and monitor performance in real time. We optimize based on collected data.">
                     Lanciamo il progetto e monitoriamo le performance in tempo reale. Ottimizziamo basandoci sui dati raccolti.
                 </p>
             </div>
@@ -843,43 +1007,43 @@
 
     <section id="call" class="section">
         <div class="section-header">
-            <h2 class="section-title">30 minuti che cambiano tutto</h2>
-            <p class="section-description">
+            <h2 class="section-title" data-it="30 minuti che cambiano tutto" data-en="30 minutes that change everything">30 minuti che cambiano tutto</h2>
+            <p class="section-description" data-it="Raccontaci la tua idea e scopriamo insieme come trasformarla in un progetto NFC vincente. Call gratuita di 30 minuti, senza impegno." data-en="Tell us your idea and let's discover together how to transform it into a winning NFC project. Free 30-minute call, no commitment.">
                 Raccontaci la tua idea e scopriamo insieme come trasformarla in un progetto NFC vincente. 
                 Call gratuita di 30 minuti, senza impegno.
             </p>
         </div>
 
         <div style="background: white; border: 1px solid #e1e8ed; border-radius: 12px; padding: 3rem; max-width: 600px; margin: 0 auto; text-align: center;">
-            <h3 style="margin-bottom: 2rem; color: #1a1a1a;">Durante la call:</h3>
+            <h3 style="margin-bottom: 2rem; color: #1a1a1a;" data-it="Durante la call:" data-en="During the call:">Durante la call:</h3>
             <div style="display: grid; gap: 1.5rem; text-align: left; margin-bottom: 2rem;">
                 <div style="display: flex; align-items: flex-start; gap: 1rem;">
                     <div style="background: #ffff55; color: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
                     <div>
-                        <strong style="color: #1a1a1a;">Analizziamo il tuo progetto</strong><br>
-                        <span style="color: #64748b;">Capiamo i tuoi obiettivi e il target di riferimento</span>
+                        <strong style="color: #1a1a1a;" data-it="Analizziamo il tuo progetto" data-en="We analyze your project">Analizziamo il tuo progetto</strong><br>
+                        <span style="color: #64748b;" data-it="Capiamo i tuoi obiettivi e il target di riferimento" data-en="We understand your objectives and target audience">Capiamo i tuoi obiettivi e il target di riferimento</span>
                     </div>
                 </div>
                 <div style="display: flex; align-items: flex-start; gap: 1rem;">
                     <div style="background: #ffff55; color: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
                     <div>
-                        <strong style="color: #1a1a1a;">Ti mostriamo le possibilità</strong><br>
-                        <span style="color: #64748b;">Esempi concreti di cosa possiamo realizzare insieme</span>
+                        <strong style="color: #1a1a1a;" data-it="Ti mostriamo le possibilità" data-en="We show you the possibilities">Ti mostriamo le possibilità</strong><br>
+                        <span style="color: #64748b;" data-it="Esempi concreti di cosa possiamo realizzare insieme" data-en="Concrete examples of what we can achieve together">Esempi concreti di cosa possiamo realizzare insieme</span>
                     </div>
                 </div>
                 <div style="display: flex; align-items: flex-start; gap: 1rem;">
                     <div style="background: #ffff55; color: #1a1a1a; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</div>
                     <div>
-                        <strong style="color: #1a1a1a;">Definiamo next step</strong><br>
-                        <span style="color: #64748b;">Timeline, budget e modalità di collaborazione</span>
+                        <strong style="color: #1a1a1a;" data-it="Definiamo next step" data-en="We define next steps">Definiamo next step</strong><br>
+                        <span style="color: #64748b;" data-it="Timeline, budget e modalità di collaborazione" data-en="Timeline, budget and collaboration methods">Timeline, budget e modalità di collaborazione</span>
                     </div>
                 </div>
             </div>
-            <a href="mailto:genfuture@outlook.c?subject=Richiesta Call Gratuita&body=Ciao, vorrei prenotare una call gratuita per discutere il mio progetto NFC." 
-               class="btn-primary" style="display: inline-block;">
+            <a href="mailto:genfuture@outlook.com?subject=Richiesta Call Gratuita&body=Ciao, vorrei prenotare una call gratuita per discutere il mio progetto NFC." 
+               class="btn-primary" style="display: inline-block;" data-it="Prenota la tua call gratuita" data-en="Book your free call">
                 Prenota la tua call gratuita
             </a>
-            <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
+            <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;" data-it="Oppure scrivici su WhatsApp: +39 345 468 9958" data-en="Or write us on WhatsApp: +39 345 468 9958">
                 Oppure scrivici su WhatsApp: +39 345 468 9958
             </p>
         </div>
@@ -888,25 +1052,25 @@
     <section id="chi-siamo" class="section about-section">
         <div class="about-content">
             <div class="about-text">
-                <h2 class="section-title">Perché facciamo solo questo</h2>
-                <p>
+                <h2 class="section-title" data-it="Perché facciamo solo questo" data-en="Why we only do this">Perché facciamo solo questo</h2>
+                <p data-it="<strong>Non siamo una web agency qualunque.</strong> Mentre altri vendono servizi, noi creiamo sistemi che generano valore misurabile per il tuo business." data-en="<strong>We are not just any web agency.</strong> While others sell services, we create systems that generate measurable value for your business.">
                     <strong>Non siamo una web agency qualunque.</strong> Mentre altri vendono servizi, noi creiamo sistemi che generano valore misurabile per il tuo business.
                 </p>
-                <p>
+                <p data-it="Il nostro team combina <strong>creatività strategica</strong> e <strong>competenze tecniche avanzate</strong>. Ogni membro ha anni di esperienza in progetti digitali ad alto impatto." data-en="Our team combines <strong>strategic creativity</strong> and <strong>advanced technical skills</strong>. Each member has years of experience in high-impact digital projects.">
                     Il nostro team combina <strong>creatività strategica</strong> e <strong>competenze tecniche avanzate</strong>. 
                     Ogni membro ha anni di esperienza in progetti digitali ad alto impatto.
                 </p>
-                <p>
+                <p data-it="<strong>Collaboriamo con aziende visionarie</strong> che vogliono differenziarsi dalla concorrenza. Ogni progetto è unico e pensato su misura per i tuoi obiettivi specifici." data-en="<strong>We collaborate with visionary companies</strong> that want to differentiate themselves from the competition. Each project is unique and tailored to your specific objectives.">
                     <strong>Collaboriamo con aziende visionarie</strong> che vogliono differenziarsi dalla concorrenza. 
                     Ogni progetto è unico e pensato su misura per i tuoi obiettivi specifici.
                 </p>
-                <p>
+                <p data-it="La tecnologia NFC esiste da anni, ma quasi nessuno la usa bene. Noi abbiamo sviluppato un approccio che <strong>massimizza l'impatto</strong> e crea esperienze davvero memorabili." data-en="NFC technology has existed for years, but almost no one uses it well. We have developed an approach that <strong>maximizes impact</strong> and creates truly memorable experiences.">
                     La tecnologia NFC esiste da anni, ma quasi nessuno la usa bene. 
                     Noi abbiamo sviluppato un approccio che <strong>massimizza l'impatto</strong> 
                     e crea esperienze davvero memorabili.
                 </p>
             </div>
-            <div class="mockup-placeholder">
+            <div class="mockup-placeholder" data-it="Il tuo render 3D / Video qui" data-en="Your 3D render / Video here">
                 Il tuo render 3D / Video qui
             </div>
         </div>
@@ -916,44 +1080,44 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="logo">GenFuture</div>
-                <p class="footer-description">
+                <p class="footer-description" data-it="Trasformiamo gadget fisici in potenti strumenti di marketing digitale. Progetti su misura per tutte le aziende." data-en="We transform physical gadgets into powerful digital marketing tools. Custom projects for all companies.">
                     Trasformiamo gadget fisici in potenti strumenti di marketing digitale. 
                     Progetti su misura per tutte le aziende.
                 </p>
             </div>
 
             <div class="footer-section">
-                <h4>Servizi</h4>
+                <h4 data-it="Servizi" data-en="Services">Servizi</h4>
                 <ul class="footer-links">
-                    <li><a href="#cosa-facciamo">Smart Cards</a></li>
-                    <li><a href="#cosa-facciamo">Landing Instant</a></li>
-                    <li><a href="#cosa-facciamo">Media Experience</a></li>
-                    <li><a href="#cosa-facciamo">Shop Connect</a></li>
+                    <li><a href="#cosa-facciamo" data-it="Smart Cards" data-en="Smart Cards">Smart Cards</a></li>
+                    <li><a href="#cosa-facciamo" data-it="Landing Instant" data-en="Instant Landing">Landing Instant</a></li>
+                    <li><a href="#cosa-facciamo" data-it="Media Experience" data-en="Media Experience">Media Experience</a></li>
+                    <li><a href="#cosa-facciamo" data-it="Shop Connect" data-en="Shop Connect">Shop Connect</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4>Informazioni</h4>
+                <h4 data-it="Informazioni" data-en="Information">Informazioni</h4>
                 <ul class="footer-links">
-                    <li><a href="#processo">Il nostro metodo</a></li>
-                    <li><a href="#team">Il team</a></li>
-                    <li><a href="#call">Prenota una call</a></li>
-                    <li><a href="#chi-siamo">Chi siamo</a></li>
+                    <li><a href="#processo" data-it="Il nostro metodo" data-en="Our method">Il nostro metodo</a></li>
+                    <li><a href="#team" data-it="Il team" data-en="The team">Il team</a></li>
+                    <li><a href="#call" data-it="Prenota una call" data-en="Book a call">Prenota una call</a></li>
+                    <li><a href="#chi-siamo" data-it="Chi siamo" data-en="About us">Chi siamo</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4>Contatti</h4>
+                <h4 data-it="Contatti" data-en="Contacts">Contatti</h4>
                 <ul class="footer-links">
                     <li><a href="mailto:genfuture@outlook.com">genfuture@outlook.com</a></li>
                     <li><a href="tel:+390123456789">+39 345 468 9958</a></li>
-                    <li><a href="#">Milano, Italia</a></li>
+                    <li><a href="#" data-it="Milano, Italia" data-en="Milan, Italy">Milano, Italia</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2025 GenFuture. Costruiamo il futuro del marketing fisico-digitale.</p>
+            <p data-it="&copy; 2025 GenFuture. Costruiamo il futuro del marketing fisico-digitale." data-en="&copy; 2025 GenFuture. We build the future of physical-digital marketing.">&copy; 2025 GenFuture. Costruiamo il futuro del marketing fisico-digitale.</p>
         </div>
     </footer>
 
@@ -1007,6 +1171,70 @@
                     }, 500);
                 }
             }, 10000);
+
+            // Language Toggle Functionality
+            let currentLang = 'it';
+            const langToggle = document.getElementById('langToggle');
+            const darkToggle = document.getElementById('darkToggle');
+
+            function switchLanguage(lang) {
+                const elements = document.querySelectorAll('[data-it][data-en]');
+                elements.forEach(el => {
+                    if (lang === 'en') {
+                        el.innerHTML = el.getAttribute('data-en');
+                    } else {
+                        el.innerHTML = el.getAttribute('data-it');
+                    }
+                });
+                
+                // Update video status text
+                if (lang === 'en') {
+                    if (vsText.textContent.includes('inizializzazione')) {
+                        vsText.textContent = 'initializing…';
+                    }
+                } else {
+                    if (vsText.textContent.includes('initializing')) {
+                        vsText.textContent = 'inizializzazione…';
+                    }
+                }
+                
+                currentLang = lang;
+                langToggle.textContent = lang === 'it' ? 'EN' : 'IT';
+                langToggle.classList.toggle('active', lang === 'en');
+                
+                // Save preference
+                localStorage.setItem('genfuture-lang', lang);
+            }
+
+            // Dark Mode Toggle Functionality
+            function toggleDarkMode() {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                darkToggle.textContent = isDark ? '☀️' : '🌙';
+                darkToggle.classList.toggle('active', isDark);
+                
+                // Save preference
+                localStorage.setItem('genfuture-darkmode', isDark);
+            }
+
+            // Event Listeners
+            langToggle.addEventListener('click', () => {
+                switchLanguage(currentLang === 'it' ? 'en' : 'it');
+            });
+
+            darkToggle.addEventListener('click', toggleDarkMode);
+
+            // Load saved preferences
+            const savedLang = localStorage.getItem('genfuture-lang');
+            const savedDarkMode = localStorage.getItem('genfuture-darkmode');
+
+            if (savedLang && savedLang !== 'it') {
+                switchLanguage(savedLang);
+            }
+
+            if (savedDarkMode === 'true') {
+                toggleDarkMode();
+            }
         })();
     </script>
 </body>
